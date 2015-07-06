@@ -1,6 +1,6 @@
 package org.kie.uberfire.social.activities.client.gravatar;
 
-import com.github.gwtbootstrap.client.ui.Image;
+import org.gwtbootstrap3.client.ui.Image;
 
 public class GravatarImage extends Image {
 

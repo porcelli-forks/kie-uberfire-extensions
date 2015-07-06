@@ -1,12 +1,5 @@
 package org.kie.uberfire.social.activities.client.widgets.item;
 
-import com.github.gwtbootstrap.client.ui.Column;
-import com.github.gwtbootstrap.client.ui.Image;
-import com.github.gwtbootstrap.client.ui.NavLink;
-import com.github.gwtbootstrap.client.ui.NavList;
-import com.github.gwtbootstrap.client.ui.Paragraph;
-import com.github.gwtbootstrap.client.ui.Thumbnail;
-import com.github.gwtbootstrap.client.ui.Thumbnails;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -14,6 +7,12 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
+import org.gwtbootstrap3.client.ui.Column;
+import org.gwtbootstrap3.client.ui.Image;
+import org.gwtbootstrap3.client.ui.ListGroup;
+import org.gwtbootstrap3.client.ui.ListGroupItem;
+import org.gwtbootstrap3.client.ui.ThumbnailPanel;
+import org.gwtbootstrap3.client.ui.html.Paragraph;
 import org.kie.uberfire.social.activities.client.gravatar.GravatarBuilder;
 import org.kie.uberfire.social.activities.client.widgets.item.model.LinkCommandParams;
 import org.kie.uberfire.social.activities.client.widgets.item.model.SimpleItemWidgetModel;
@@ -49,7 +48,7 @@ public class SimpleItemWidget extends Composite {
         } else {
             createIcon( model );
         }
-        createColumnContent( model ) ;
+        createColumnContent( model );
     }
 
     private void createColumnContent( SimpleItemWidgetModel model ) {
@@ -86,11 +85,11 @@ public class SimpleItemWidget extends Composite {
         }
     }
 
-    private NavList createLink( final SimpleItemWidgetModel model ) {
-        NavList list = new NavList();
-        NavLink link = new NavLink();
+    private ListGroup createLink( final SimpleItemWidgetModel model ) {
+        ListGroup list = new ListGroup();
+        ListGroupItem link = new ListGroupItem();
         link.setText( model.getLinkText() );
-        link.addClickHandler( new ClickHandler() {
+        link.addDomHandler( new ClickHandler() {
             @Override
             public void onClick( ClickEvent event ) {
                 model.getLinkCommand().execute( new LinkCommandParams( model.getEventType(),
@@ -98,19 +97,17 @@ public class SimpleItemWidget extends Composite {
                         model.getLinkType() )
                         .withLinkParams( model.getLinkParams() ) );
             }
-        } );
+        }, ClickEvent.getType() );
         list.add( link );
         return list;
     }
 
     private void createThumbNail( SocialUser socialUser ) {
-        Thumbnails tumThumbnails = new Thumbnails();
-        Thumbnail t = new Thumbnail();
+        ThumbnailPanel tumThumbnails = new ThumbnailPanel();
         Image userImage;
         userImage = GravatarBuilder.generate( socialUser, GravatarBuilder.SIZE.SMALL );
         userImage.setSize( "30px", "30px" );
-        t.add( userImage );
-        tumThumbnails.add( t );
+        tumThumbnails.add( userImage );
         icon.add( tumThumbnails );
     }
 

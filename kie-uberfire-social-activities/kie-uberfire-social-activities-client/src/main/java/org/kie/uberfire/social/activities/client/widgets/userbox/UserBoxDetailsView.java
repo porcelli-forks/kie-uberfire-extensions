@@ -16,12 +16,6 @@
 
 package org.kie.uberfire.social.activities.client.widgets.userbox;
 
-import com.github.gwtbootstrap.client.ui.Button;
-import com.github.gwtbootstrap.client.ui.Image;
-import com.github.gwtbootstrap.client.ui.NavLink;
-import com.github.gwtbootstrap.client.ui.NavList;
-import com.github.gwtbootstrap.client.ui.constants.ButtonType;
-import com.github.gwtbootstrap.client.ui.resources.ButtonSize;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -32,6 +26,12 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.Widget;
+import org.gwtbootstrap3.client.ui.Button;
+import org.gwtbootstrap3.client.ui.Image;
+import org.gwtbootstrap3.client.ui.ListGroup;
+import org.gwtbootstrap3.client.ui.ListGroupItem;
+import org.gwtbootstrap3.client.ui.constants.ButtonSize;
+import org.gwtbootstrap3.client.ui.constants.ButtonType;
 import org.kie.uberfire.social.activities.model.SocialUser;
 import org.uberfire.mvp.ParameterizedCommand;
 
@@ -72,18 +72,18 @@ public class UserBoxDetailsView extends PopupPanel {
                                       Image userImage,
                                       final ParameterizedCommand<String> onClick,
                                       final ParameterizedCommand<String> followUnfollowCommand ) {
-            Button followUnfollow = GWT.create( Button.class );
-            followUnfollow.addClickHandler( new ClickHandler() {
-                @Override
-                public void onClick( ClickEvent event ) {
-                    followUnfollowCommand.execute( socialUser.getUserName() );
-                    hide();
-                }
-            } );
-            followUnfollow.setText( type.label() );
-            followUnfollow.setType( ButtonType.INFO );
-            followUnfollow.setSize( ButtonSize.MINI );
-            followLink.add( followUnfollow );
+        Button followUnfollow = GWT.create( Button.class );
+        followUnfollow.addClickHandler( new ClickHandler() {
+            @Override
+            public void onClick( ClickEvent event ) {
+                followUnfollowCommand.execute( socialUser.getUserName() );
+                hide();
+            }
+        } );
+        followUnfollow.setText( type.label() );
+        followUnfollow.setType( ButtonType.INFO );
+        followUnfollow.setSize( ButtonSize.EXTRA_SMALL );
+        followLink.add( followUnfollow );
     }
 
     private void setupUserBox( final SocialUser socialUser,
@@ -101,17 +101,17 @@ public class UserBoxDetailsView extends PopupPanel {
         userBoxPanel.asWidget();
     }
 
-    private NavList createLink( final SocialUser follower,
+    private ListGroup createLink( final SocialUser follower,
                                 final ParameterizedCommand<String> command ) {
-        NavList list = new NavList();
-        NavLink link = new NavLink();
+        ListGroup list = new ListGroup();
+        ListGroupItem link = new ListGroupItem();
         link.setText( follower.getUserName() );
-        link.addClickHandler( new ClickHandler() {
+        link.addDomHandler( new ClickHandler() {
             @Override
             public void onClick( ClickEvent event ) {
                 command.execute( follower.getUserName() );
             }
-        } );
+        }, ClickEvent.getType() );
         list.add( link );
         return list;
     }

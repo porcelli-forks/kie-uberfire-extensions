@@ -3,13 +3,13 @@ package org.kie.uberfire.social.activities.client.widgets.timeline.regular;
 import java.util.List;
 import java.util.Map;
 
-import com.github.gwtbootstrap.client.ui.Container;
-import com.github.gwtbootstrap.client.ui.Paragraph;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
+import org.gwtbootstrap3.client.ui.Container;
+import org.gwtbootstrap3.client.ui.html.Paragraph;
 import org.jboss.errai.bus.client.api.base.MessageBuilder;
 import org.jboss.errai.common.client.api.RemoteCallback;
 import org.kie.uberfire.social.activities.client.widgets.item.SimpleItemWidget;

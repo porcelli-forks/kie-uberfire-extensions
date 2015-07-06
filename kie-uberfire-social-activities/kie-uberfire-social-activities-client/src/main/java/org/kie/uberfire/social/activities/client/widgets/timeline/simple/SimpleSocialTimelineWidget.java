@@ -1,10 +1,5 @@
 package org.kie.uberfire.social.activities.client.widgets.timeline.simple;
 
-import com.github.gwtbootstrap.client.ui.Container;
-import com.github.gwtbootstrap.client.ui.Fieldset;
-import com.github.gwtbootstrap.client.ui.FluidContainer;
-import com.github.gwtbootstrap.client.ui.NavList;
-import com.github.gwtbootstrap.client.ui.Paragraph;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -12,6 +7,10 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
+import org.gwtbootstrap3.client.ui.Container;
+import org.gwtbootstrap3.client.ui.FieldSet;
+import org.gwtbootstrap3.client.ui.ListGroup;
+import org.gwtbootstrap3.client.ui.html.Paragraph;
 import org.jboss.errai.bus.client.api.base.MessageBuilder;
 import org.jboss.errai.common.client.api.RemoteCallback;
 import org.kie.uberfire.social.activities.client.widgets.item.SimpleItemWidget;
@@ -29,10 +28,10 @@ public class SimpleSocialTimelineWidget extends Composite {
     private SimpleSocialTimelineWidgetModel model;
 
     @UiField
-    FluidContainer itemsPanel;
+    Container itemsPanel;
 
     @UiField
-    Fieldset pagination;
+    FieldSet pagination;
 
     public SimpleSocialTimelineWidget( SimpleSocialTimelineWidgetModel model ) {
         initWidget( uiBinder.createAndBindUi( this ) );
@@ -142,7 +141,7 @@ public class SimpleSocialTimelineWidget extends Composite {
     }
 
     private void setupPaginationButtonsSocial() {
-        NavList list = GWT.create( NavList.class );
+        ListGroup list = new ListGroup();
         if ( canICreateLessLink() ) {
             list.add( model.getLess() );
         }
@@ -172,23 +171,23 @@ public class SimpleSocialTimelineWidget extends Composite {
     }
 
     private void createMoreLink() {
-        model.getMore().addClickHandler( new ClickHandler() {
+        model.getMore().addDomHandler( new ClickHandler() {
             @Override
             public void onClick( ClickEvent event ) {
                 model.getSocialPaged().forward();
                 createWidgets();
             }
-        } );
+        }, ClickEvent.getType() );
     }
 
     private void createLessLink() {
-        model.getLess().addClickHandler( new ClickHandler() {
+        model.getLess().addDomHandler( new ClickHandler() {
             @Override
             public void onClick( ClickEvent event ) {
                 model.getSocialPaged().backward();
                 refreshTimelineWidget();
             }
-        } );
+        }, ClickEvent.getType() );
     }
 
     interface MyUiBinder extends UiBinder<Widget, SimpleSocialTimelineWidget> {

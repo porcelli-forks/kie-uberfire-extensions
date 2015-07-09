@@ -1,11 +1,5 @@
 package org.kie.uberfire.social.activities.client.widgets.item;
 
-import com.github.gwtbootstrap.client.ui.Column;
-import com.github.gwtbootstrap.client.ui.Container;
-import com.github.gwtbootstrap.client.ui.FluidContainer;
-import com.github.gwtbootstrap.client.ui.Image;
-import com.github.gwtbootstrap.client.ui.NavLink;
-import com.github.gwtbootstrap.client.ui.NavList;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -13,6 +7,11 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
+import org.gwtbootstrap3.client.ui.Column;
+import org.gwtbootstrap3.client.ui.Container;
+import org.gwtbootstrap3.client.ui.Image;
+import org.gwtbootstrap3.client.ui.ListGroup;
+import org.gwtbootstrap3.client.ui.ListGroupItem;
 import org.jboss.errai.bus.client.api.base.MessageBuilder;
 import org.jboss.errai.common.client.api.RemoteCallback;
 import org.kie.uberfire.social.activities.client.widgets.item.model.LinkCommandParams;
@@ -38,7 +37,7 @@ public class SocialItemExpandedWidget extends Composite {
     Column file;
 
     @UiField
-    FluidContainer table;
+    Container table;
 
     interface MyUiBinder extends UiBinder<Widget, SocialItemExpandedWidget> {
 
@@ -91,11 +90,11 @@ public class SocialItemExpandedWidget extends Composite {
 
     private void createLink( final SocialItemExpandedWidgetModel model ) {
         final UpdateItem updateItem = model.getUpdateItems().get( 0 );
-        NavList list = new NavList();
-        NavLink link = new NavLink();
+        ListGroup list = new ListGroup();
+        ListGroupItem link = new ListGroupItem();
         final String linkLabel = updateItem.getEvent().getLinkLabel();
         link.setText( linkLabel );
-        link.addClickHandler( new ClickHandler() {
+        link.addDomHandler( new ClickHandler() {
             @Override
             public void onClick( ClickEvent event ) {
                 model.getModel().getLinkCommand().execute( new LinkCommandParams( updateItem.getEvent().getType(),
@@ -103,7 +102,7 @@ public class SocialItemExpandedWidget extends Composite {
                         updateItem.getEvent().getLinkType() )
                         .withLinkParams( updateItem.getEvent().getLinkParams() ) );
             }
-        } );
+        }, ClickEvent.getType() );
         list.add( link );
         file.add( list );
     }

@@ -1,7 +1,7 @@
 package org.kie.uberfire.social.activities.client.gravatar;
 
-import com.github.gwtbootstrap.client.ui.Image;
 import com.google.gwt.resources.client.ImageResource;
+import org.gwtbootstrap3.client.ui.Image;
 import org.kie.uberfire.social.activities.client.AppResource;
 import org.kie.uberfire.social.activities.model.SocialUser;
 
@@ -28,7 +28,7 @@ public class GravatarBuilder {
             gravatarImage = new Image( new GravatarImage( socialUser.getEmail(), 15 ).getUrl() );
         } else if ( size == SIZE.SMALL ) {
             gravatarImage = new Image( new GravatarImage( socialUser.getEmail(), 30 ).getUrl() );
-        } else   {
+        } else {
             gravatarImage = new Image( new GravatarImage( socialUser.getEmail(), 200 ).getUrl() );
         }
 
